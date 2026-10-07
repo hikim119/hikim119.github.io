@@ -2,35 +2,131 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>장국소프트</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>장국소프트 · Jangguk Soft</title>
+<meta name="description" content="하루를 달력에 가볍게 기록하는 앱을 만듭니다 — 똥달, 베이비푸푸, 펫푸푸, 밥달, 혈당 달력, 밀가루 끊기.">
+<meta property="og:title" content="장국소프트 · Jangguk Soft">
+<meta property="og:description" content="하루를 달력에 가볍게 기록하는 앱들">
+<meta property="og:image" content="https://hikim119.github.io/icons/ddongdal.png">
+<link rel="icon" href="favicon.png" type="image/png">
 <style>
-  body{margin:0;padding:32px 16px;font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#fbf7f0;color:#4a3a2c;line-height:1.5}
-  main{max-width:560px;margin:0 auto}
-  h1{font-size:22px;margin:0 0 4px}
-  p.sub{margin:0 0 28px;color:#8a7a6a}
-  ul{list-style:none;padding:0;margin:0}
-  li{background:#fff;border:1px solid #eadfd0;border-radius:14px;padding:14px 16px;margin-bottom:10px}
-  li b{display:block;font-size:16px}
-  li span{color:#8a7a6a;font-size:14px}
-  li a{display:inline-block;margin-top:6px;margin-right:12px;color:#c0634f;font-size:14px;text-decoration:none}
-  footer{margin-top:28px;color:#8a7a6a;font-size:13px}
-  footer a{color:#8a7a6a}
+  :root{
+    --paper:#fbf7f0; --card:#fffdf8; --ink:#4a3a2c; --muted:#8f806f; --line:#eadfd0;
+    --accent:#c0634f; --accent-soft:#f6e3dd; --chip:#f3ebe0;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#1f1a16; --card:#2a241f; --ink:#f1e8dc; --muted:#a69583; --line:#3a322b; --accent:#e58b78; --accent-soft:#3b2b27; --chip:#352d26; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Hiragino Sans","Noto Sans KR","Noto Sans JP","Noto Sans SC",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  main{max-width:640px;margin:0 auto;padding:40px 20px 56px}
+  header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:28px}
+  h1{font-size:26px;margin:0;letter-spacing:-.01em}
+  h1 small{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-top:2px;letter-spacing:.02em}
+  .tagline{margin:10px 0 0;color:var(--muted);font-size:15px}
+  .lang{display:flex;gap:4px;flex-shrink:0;background:var(--chip);border-radius:999px;padding:3px}
+  .lang button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;padding:5px 10px;border-radius:999px;cursor:pointer}
+  .lang button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+  ul.apps{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+  li.app{display:grid;grid-template-columns:72px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+  li.app img{width:72px;height:72px;border-radius:18px;display:block}
+  li.app b{display:block;font-size:17px;line-height:1.3}
+  li.app .sub{color:var(--muted);font-size:14px;margin:2px 0 10px}
+  .links{display:flex;flex-wrap:wrap;gap:8px}
+  .links a{display:inline-flex;align-items:center;gap:6px;font-size:13px;text-decoration:none;padding:6px 11px;border-radius:999px;border:1px solid var(--line);color:var(--ink);background:var(--paper)}
+  .links a.store{background:var(--accent-soft);border-color:transparent;color:var(--accent);font-weight:600}
+  .links a:hover{border-color:var(--accent)}
+  .links svg{width:14px;height:14px;fill:currentColor}
+  section.about{margin-top:36px;padding-top:24px;border-top:1px dashed var(--line);color:var(--muted);font-size:14px}
+  section.about p{margin:0 0 8px}
+  section.about a{color:var(--accent);text-decoration:none}
+  footer{margin-top:28px;font-size:12px;color:var(--muted)}
+  @media (max-width:420px){ li.app{grid-template-columns:60px 1fr} li.app img{width:60px;height:60px;border-radius:15px} }
 </style>
 </head>
 <body>
 <main>
-  <h1>장국소프트</h1>
-  <p class="sub">하루를 달력에 가볍게 기록하는 앱들을 만듭니다.</p>
-  <ul>
-    <li><b>똥달</b><span>똥 기록 캘린더</span><br><a href="https://apps.apple.com/kr/app/id6792473247">App Store</a><a href="https://play.google.com/store/apps/details?id=com.hyeiny.ddongdal">Google Play</a></li>
-    <li><b>베이비푸푸</b><span>아기 배변 건강 일기</span><br><a href="https://apps.apple.com/kr/app/id6793350419">App Store</a><a href="https://play.google.com/store/apps/details?id=com.hyeiny.babypoopoo">Google Play</a></li>
-    <li><b>펫푸푸</b><span>강아지·고양이 배변 기록</span><br><a href="https://apps.apple.com/kr/app/id6802986280">App Store</a><a href="https://play.google.com/store/apps/details?id=com.hyeiny.petpoopoo">Google Play</a></li>
-    <li><b>밥달</b><span>식단 달력</span><br><a href="https://apps.apple.com/kr/app/id6802971067">App Store</a><a href="https://play.google.com/store/apps/details?id=com.hyeiny.bapdal">Google Play</a></li>
-    <li><b>혈당 달력</b><span>혈당 기록 캘린더</span><br><a href="https://apps.apple.com/kr/app/id6802971260">App Store</a><a href="https://play.google.com/store/apps/details?id=com.hyeiny.dangdal">Google Play</a></li>
-    <li><b>밀가루 끊기</b><span>챌린지 달력</span><br><a href="https://apps.apple.com/kr/app/id6802986129">App Store</a><a href="https://play.google.com/store/apps/details?id=com.hyeiny.nomilgaru">Google Play</a></li>
-  </ul>
-  <footer>문의: <a href="mailto:hyeiny119@naver.com">hyeiny119@naver.com</a></footer>
+  <header>
+    <div>
+      <h1>장국소프트 <small>Jangguk Soft</small></h1>
+      <p class="tagline" data-i18n="tagline"></p>
+    </div>
+    <nav class="lang" aria-label="language">
+      <button data-lang="ko">한국어</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="ja">日本語</button>
+      <button data-lang="zh">中文</button>
+    </nav>
+  </header>
+
+  <ul class="apps" id="apps"></ul>
+
+  <section class="about">
+    <p data-i18n="about1"></p>
+    <p data-i18n="about2"></p>
+    <p><span data-i18n="contact"></span>: <a href="mailto:hyeiny119@naver.com">hyeiny119@naver.com</a></p>
+  </section>
+  <footer>© 2026 장국소프트 · Jangguk Soft</footer>
 </main>
+
+<script>
+const APPS = [
+  { id:'ddongdal',   ios:'6792473247', privacy:'https://fuschia-bard-185.notion.site/39e43d1cf01680cfbe40caf2dd170fbd',
+    name:{ko:'똥달',en:'DdongDal',ja:'トンダル',zh:'便便日历'},
+    sub:{ko:'똥 기록 캘린더',en:'Poop tracker for gut health',ja:'腸活のうんち記録カレンダー',zh:'记录排便，管理肠道健康'} },
+  { id:'babypoopoo', ios:'6793350419', privacy:'https://fuschia-bard-185.notion.site/3a543d1cf01680a690aefd17c2fbfabf',
+    name:{ko:'베이비푸푸',en:'BabyPoopoo',ja:'ベビープープー',zh:'宝宝噗噗'},
+    sub:{ko:'색깔로 보는 우리 아기 응가 건강',en:'Stool color guide for parents',ja:'色でわかる赤ちゃんのうんち健康',zh:'用颜色读懂宝宝便便健康'} },
+  { id:'petpoopoo',  ios:'6802986280', privacy:'https://fuschia-bard-185.notion.site/3b243d1cf0168029b540d44dd0aa8107',
+    name:{ko:'펫푸푸',en:'PetPoopoo',ja:'ペットプープー',zh:'宠物噗噗'},
+    sub:{ko:'반려동물 배변 기록 캘린더',en:'Dog & cat poop tracker',ja:'犬・猫のうんち記録カレンダー',zh:'记录猫狗排便，守护肠道健康'} },
+  { id:'bapdal',     ios:'6802971067', privacy:'https://fuschia-bard-185.notion.site/3b243d1cf01680bb9907c5b692022bb7',
+    name:{ko:'밥달',en:'BapDal',ja:'ごはんカレンダー',zh:'饭饭日历'},
+    sub:{ko:'일주일 식단표와 식사 기록',en:'Weekly meal planner',ja:'一週間の献立と食事記録',zh:'一周食谱与用餐记录'} },
+  { id:'dangdal',    ios:'6802971260', privacy:'https://fuschia-bard-185.notion.site/3b343d1cf016807a91bad0a2db2d8989',
+    name:{ko:'혈당 달력',en:'Blood Sugar Calendar',ja:'血糖カレンダー',zh:'血糖日历'},
+    sub:{ko:'혈당 기록 캘린더',en:'Blood sugar log & chart',ja:'血糖値の記録カレンダー',zh:'血糖记录日历'} },
+  { id:'nomilgaru',  ios:'6802986129', privacy:'https://fuschia-bard-185.notion.site/3b343d1cf0168031bf84c4d85fc0f7cf',
+    name:{ko:'밀가루 끊기',en:'Quit Flour',ja:'小麦粉断ち',zh:'戒面粉'},
+    sub:{ko:'도장 찍는 습관 챌린지',en:'Gluten-free habit challenge',ja:'スタンプで続ける習慣チャレンジ',zh:'盖章打卡的习惯挑战'} },
+];
+const T = {
+  ko:{tagline:'하루를 달력에 가볍게 기록하는 앱을 만듭니다.', about1:'회원가입 없이 바로 쓰고, 기록은 전부 휴대폰 안에만 저장됩니다.', about2:'앱 안의 건강 정보는 참고용이며 의학적 조언이 아닙니다.', contact:'문의', privacy:'개인정보 처리방침', store:{ios:'App Store', play:'Google Play'}},
+  en:{tagline:'Small calendar apps for logging your day, lightly.', about1:'No sign-up. Everything stays on your phone.', about2:'Health information in the apps is for reference only and is not medical advice.', contact:'Contact', privacy:'Privacy Policy', store:{ios:'App Store', play:'Google Play'}},
+  ja:{tagline:'毎日をカレンダーに気軽に記録するアプリを作っています。', about1:'会員登録なしで使え、記録はすべてスマホの中にだけ保存されます。', about2:'アプリ内の健康情報は参考情報であり、医学的助言ではありません。', contact:'お問い合わせ', privacy:'プライバシーポリシー', store:{ios:'App Store', play:'Google Play'}},
+  zh:{tagline:'做一些把每一天轻松记在日历上的小应用。', about1:'无需注册，所有记录只保存在手机里。', about2:'应用内的健康信息仅供参考，不构成医疗建议。', contact:'联系', privacy:'隐私政策', store:{ios:'App Store', play:'Google Play'}},
+};
+const STORE_CC = {ko:'kr', en:'us', ja:'jp', zh:'cn'};
+const apple = '<svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.8 1.3 10.3.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.4-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.2zM13.9 4.9c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>';
+const play  = '<svg viewBox="0 0 24 24"><path d="M3.6 2.3c-.3.3-.5.8-.5 1.4v16.6c0 .6.2 1.1.5 1.4l.1.1 9.3-9.3v-.2L3.7 2.2l-.1.1zm12.4 12.4L13 11.6v-.2l3-3.1 .1.1 3.6 2.1c1 .6 1 1.5 0 2.1l-3.6 2.1-.1-.0zm-.1.1l-3.1-3.1-9.2 9.3c.3.4.9.4 1.5 0l10.8-6.2zM3.6 2.2l9.2 9.3 3.1-3.1L5.1 2.2c-.6-.4-1.2-.3-1.5 0z"/></svg>';
+
+function render(lang){
+  const t = T[lang]; document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = t[el.dataset.i18n]);
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+  document.getElementById('apps').innerHTML = APPS.map(a => `
+    <li class="app">
+      <img src="icons/${a.id}.png" alt="" width="72" height="72">
+      <div>
+        <b>${a.name[lang]}</b>
+        <div class="sub">${a.sub[lang]}</div>
+        <div class="links">
+          <a class="store" href="https://apps.apple.com/${STORE_CC[lang]}/app/id${a.ios}">${apple}${t.store.ios}</a>
+          <a class="store" href="https://play.google.com/store/apps/details?id=com.hyeiny.${a.id}&hl=${lang}">${play}${t.store.play}</a>
+          <a href="${a.privacy}">${t.privacy}</a>
+        </div>
+      </div>
+    </li>`).join('');
+  try { localStorage.setItem('lang', lang); } catch (_) {}
+}
+function initial(){
+  try { const s = localStorage.getItem('lang'); if (s && T[s]) return s; } catch (_) {}
+  const n = (navigator.language || 'ko').toLowerCase();
+  return n.startsWith('ko') ? 'ko' : n.startsWith('ja') ? 'ja' : n.startsWith('zh') ? 'zh' : 'en';
+}
+document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => render(b.dataset.lang)));
+render(initial());
+</script>
 </body>
 </html>
