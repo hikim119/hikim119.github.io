@@ -36,6 +36,9 @@ MENU = [
      [("notice", "공지사항")]),
 ]
 
+# 서브 페이지 상단 배너 사진 (img/ 안 파일)
+BANNER = {"회사소개": "circuit.jpg", "사업내용": "hero.jpg", "견적문의": "cta-bg.jpg", "고객센터": "pcb.jpg"}
+
 # 선 아이콘 (64x64). class="ac" 는 강조색 채움, class="acs" 는 강조색 선.
 _IC = {
     "chip": '<rect x="18" y="18" width="28" height="28" rx="3"/><rect class="ac" x="25" y="25" width="14" height="14" rx="2"/><path d="M25 18v-8M32 18v-8M39 18v-8M25 54v-8M32 54v-8M39 54v-8M18 25h-8M18 32h-8M18 39h-8M54 25h-8M54 32h-8M54 39h-8"/>',
@@ -123,9 +126,8 @@ def sub_frame(group, key):
     slogan, pages = next((s, p) for g, s, p in MENU if g == group)
     tabs = "".join('<li%s><a href="%s.html">%s</a></li>' % (' class="on"' if k == key else "", k, t)
                    for k, t in pages)
-    return f"""<div class="svisual">
+    return f"""<div class="svisual" style="--bg:url('img/{BANNER[group]}')">
   <div class="wrap"><h2>{group}</h2><p>{slogan}</p></div>
-  <div class="ph dark">배너 사진 자리</div>
 </div>
 <nav class="tabs" aria-label="{group} 메뉴"><ul>{tabs}</ul></nav>
 """

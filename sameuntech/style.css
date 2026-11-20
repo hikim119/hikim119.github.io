@@ -75,7 +75,10 @@ html { scroll-padding-top: var(--header-h); }
 }
 .ph.dark { background: transparent; color: rgba(255,255,255,.45); }
 .ph.dark::before { filter: invert(1); opacity: .35; }
-.photo { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+.photo { display: block; width: 100%; height: auto; object-fit: cover; border-radius: var(--radius); }
+.intro .photo { aspect-ratio: 392 / 290; }
+.biz-card .photo { aspect-ratio: 256 / 300; }
+.photo.banner { aspect-ratio: 1160 / 380; }
 
 /* ---------- main ---------- */
 .hero { position: relative; height: 680px; background:
@@ -147,7 +150,10 @@ html { scroll-padding-top: var(--header-h); }
 .cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
 
 /* ---------- sub page ---------- */
-.svisual { position: relative; height: 300px; color: #fff; background: radial-gradient(600px 300px at 85% 30%, rgba(59,116,232,.22), transparent 70%), var(--navy-grad); }
+.svisual { position: relative; height: 300px; color: #fff; background:
+  linear-gradient(180deg, rgba(8,17,42,.55) 0, rgba(8,17,42,0) 130px),
+  linear-gradient(90deg, rgba(8,17,42,.92) 0%, rgba(8,17,42,.72) 45%, rgba(8,17,42,.45) 100%),
+  var(--bg, none) center / cover no-repeat, var(--navy-grad); }
 .svisual .wrap { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-top: var(--header-h); }
 .svisual h2 { font-size: 36px; font-weight: 800; letter-spacing: -.02em; }
 .svisual p { font-size: 15.5px; color: rgba(255,255,255,.82); margin-top: 6px; }
@@ -302,7 +308,7 @@ html { scroll-padding-top: var(--header-h); }
   .sec { padding: 70px 0 76px; }
   .sec-title { font-size: 30px; margin-bottom: 34px; }
   .biz-cards { grid-template-columns: 1fr; gap: 36px; }
-  .biz-card .ph { aspect-ratio: 16 / 10; }
+  .biz-card .ph, .biz-card .photo { aspect-ratio: 16 / 10; }
   .biz-card h3 { margin-top: 18px; }
   .prod-cards { grid-template-columns: 1fr 1fr; gap: 14px; }
   .news { grid-template-columns: 1fr; gap: 36px; }
@@ -321,7 +327,7 @@ html { scroll-padding-top: var(--header-h); }
   .content { padding: 50px 0 80px; }
   .c-title { font-size: 26px; margin-bottom: 28px; }
   .c-sub { margin-top: 56px; }
-  .ph.banner { aspect-ratio: 16 / 9; }
+  .ph.banner, .photo.banner { aspect-ratio: 16 / 9; }
   .split { grid-template-columns: 1fr; gap: 18px; margin-top: 28px; }
   .split h4 { font-size: 22px; }
   .split h4 br { display: none; }
