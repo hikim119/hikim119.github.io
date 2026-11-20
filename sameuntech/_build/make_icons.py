@@ -1,37 +1,99 @@
-"""브라우저 탭 아이콘(파비콘) 만들기: 남색 둥근 사각형에 흰 「삼」.
+"""로고 원본(_build/logo-source.png, 투명 배경)에서 사이트용 로고·탭 아이콘·공유 이미지를 만든다.
 
     python sameuntech/_build/make_icons.py
 
-로고가 생기면 이 그림 대신 로고로 favicon.png / apple-touch-icon.png 를 바꾼다.
+만드는 것
+  img/logo.png       흰 바탕용 원래 색 로고 (푸터·모바일 메뉴)
+  img/logo-dark.png  어두운 바탕용: SE 마크는 색 그대로, 글자만 흰색 (머리말)
+  favicon.png        브라우저 탭 아이콘 (SE 마크)
+  apple-touch-icon.png  아이폰 홈 화면 아이콘 (흰 바탕 + SE 마크)
+  og.jpg             카카오톡·문자 공유 미리보기 (메인 사진 + 로고)
 """
 from pathlib import Path
+
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-OUT = Path(__file__).resolve().parent.parent
-FONT = "C:/Windows/Fonts/NotoSansKR-Black.ttf"
+HERE = Path(__file__).resolve().parent
+OUT = HERE.parent
+FONT = "C:/Windows/Fonts/NotoSansKR-{}.ttf"
+
+src = Image.open(HERE / "logo-source.png").convert("RGBA")
+arr = np.asarray(src)
+vis = arr[..., 3] > 40
+ys, xs = np.where(vis)
+logo = src.crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
+
+# 마크와 글자 사이의 빈 세로줄 찾기
+cols = (np.asarray(logo)[..., 3] > 40).sum(axis=0)
+split, run = None, 0
+for x, c in enumerate(cols):
+    run = run + 1 if c == 0 else 0
+    if run > 15:
+        split = x - run + 1
+        break
+if split is None:
+    raise SystemExit("마크와 글자 사이 빈 칸을 못 찾음")
+mark = logo.crop((0, 0, split, logo.height))
+mark = mark.crop(mark.getbbox())
 
 
-def icon(size, radius_ratio=0.22, text_ratio=0.66):
-    s = size * 4  # 크게 그린 뒤 줄여서 가장자리를 매끄럽게
-    img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
-    # 위→아래 남색 그라데이션
-    grad = Image.new("RGBA", (s, s))
-    gd = ImageDraw.Draw(grad)
-    top, bot = (31, 63, 140), (11, 23, 54)
-    for y in range(s):
-        t = y / (s - 1)
-        gd.line([(0, y), (s, y)], fill=tuple(round(a + (b - a) * t) for a, b in zip(top, bot)) + (255,))
-    mask = Image.new("L", (s, s), 0)
-    ImageDraw.Draw(mask).rounded_rectangle([0, 0, s - 1, s - 1], radius=int(s * radius_ratio), fill=255)
-    img.paste(grad, (0, 0), mask)
-    d = ImageDraw.Draw(img)
-    font = ImageFont.truetype(FONT, int(s * text_ratio))
-    box = d.textbbox((0, 0), "삼", font=font)
-    w, h = box[2] - box[0], box[3] - box[1]
-    d.text(((s - w) / 2 - box[0], (s - h) / 2 - box[1]), "삼", font=font, fill="white")
-    return img.resize((size, size), Image.LANCZOS)
+def fit_h(img, h):
+    return img.resize((round(img.width * h / img.height), h), Image.LANCZOS)
 
 
-icon(64).save(OUT / "favicon.png", optimize=True)
-icon(180, radius_ratio=0.0).convert("RGB").save(OUT / "apple-touch-icon.png", optimize=True)  # iOS 가 직접 둥글게 깎는다
-print("ok", (OUT / "favicon.png").stat().st_size, (OUT / "apple-touch-icon.png").stat().st_size)
+# 로고 2종 (표시 높이 46px 기준 3배)
+H = 140
+fit_h(logo, H).save(OUT / "img" / "logo.png", optimize=True)
+dark = np.asarray(logo).copy()
+dark[:, split:, :3] = 255
+fit_h(Image.fromarray(dark), H).save(OUT / "img" / "logo-dark.png", optimize=True)
+
+
+def square(img, size, pad, bg=None):
+    s = size * 4
+    canvas = Image.new("RGBA", (s, s), bg or (0, 0, 0, 0))
+    inner = s - 2 * int(s * pad)
+    m = img.copy()
+    m.thumbnail((inner, inner), Image.LANCZOS)
+    canvas.paste(m, ((s - m.width) // 2, (s - m.height) // 2), m)
+    return canvas.resize((size, size), Image.LANCZOS)
+
+
+def rounded_white(size, radius=0.22):
+    s = size * 4
+    m = Image.new("L", (s, s), 0)
+    ImageDraw.Draw(m).rounded_rectangle([0, 0, s - 1, s - 1], radius=int(s * radius), fill=255)
+    tile = Image.new("RGBA", (s, s), (255, 255, 255, 0))
+    tile.paste(Image.new("RGBA", (s, s), (255, 255, 255, 255)), (0, 0), m)
+    return tile
+
+
+fav = rounded_white(64)
+fm = mark.copy()
+fm.thumbnail((int(64 * 4 * 0.94), int(64 * 4 * 0.94)), Image.LANCZOS)
+fav.paste(fm, ((fav.width - fm.width) // 2, (fav.height - fm.height) // 2), fm)
+fav.resize((64, 64), Image.LANCZOS).save(OUT / "favicon.png", optimize=True)
+square(mark, 180, 0.12, bg=(255, 255, 255, 255)).convert("RGB").save(OUT / "apple-touch-icon.png", optimize=True)
+
+# 공유 미리보기 1200x630: 메인 사진 오른쪽 + 왼쪽 남색 그라데이션 + 로고
+W, Hh = 1200, 630
+bg = Image.open(OUT / "img" / "hero.jpg").convert("RGB")
+r = Hh / bg.height
+bg = bg.resize((round(bg.width * r), Hh), Image.LANCZOS)
+bg = bg.crop((bg.width - W, 0, bg.width, Hh)).convert("RGBA")
+ov = Image.new("RGBA", (W, Hh))
+d = ImageDraw.Draw(ov)
+for x in range(W):
+    t = x / W
+    d.line([(x, 0), (x, Hh)], fill=(8, 17, 42, max(0, int(235 * (1 - t / 0.75)))))
+og = Image.alpha_composite(bg, ov)
+lg = fit_h(Image.fromarray(dark), 170)
+og.paste(lg, (70, 150), lg)
+d = ImageDraw.Draw(og)
+d.text((84, 372), "SMT · 수삽 · PCB 조립", font=ImageFont.truetype(FONT.format("Bold"), 44), fill="white")
+d.text((84, 440), "샘플부터 양산까지 · 02-2083-2070", font=ImageFont.truetype(FONT.format("Medium"), 28), fill=(255, 255, 255, 215))
+og.convert("RGB").save(OUT / "og.jpg", "JPEG", quality=85, optimize=True, progressive=True)
+
+for p in ["img/logo.png", "img/logo-dark.png", "favicon.png", "apple-touch-icon.png", "og.jpg"]:
+    print(p, (OUT / p).stat().st_size // 1024, "KB")

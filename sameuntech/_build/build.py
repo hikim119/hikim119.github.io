@@ -106,12 +106,13 @@ def header(group):
                  + (f"<dd>{links}</dd>" if many else "") + "</dl>")
     return f"""<header class="header">
   <div class="wrap">
-    <a class="logo" href="index.html"><strong>삼은테크</strong><small>SAMEUN TECH</small></a>
+    <a class="logo" href="index.html"><img src="img/logo-dark.png" alt="삼은테크 SAMEUN TECH" width="535" height="140"></a>
     <ul class="gnb">{"".join(items)}</ul>
     <button type="button" class="menu-btn" id="menuOpen" aria-label="전체 메뉴" aria-expanded="false" aria-controls="sitemap">{SVG["menu"]}</button>
   </div>
 </header>
 <div class="sitemap" id="sitemap"><div class="sitemap-inner">
+  <a class="sm-logo" href="index.html"><img src="img/logo.png" alt="삼은테크" width="535" height="140"></a>
   <button type="button" class="sitemap-close" id="menuClose" aria-label="메뉴 닫기">&times;</button>
   <dl><dt><a href="index.html">처음으로</a></dt></dl>{smap}
 </div></div>
@@ -134,7 +135,7 @@ def footer():
     c = CO
     return f"""<footer class="footer">
   <div class="wrap">
-    <b>{c["name"]}</b><br>
+    <img class="f-logo" src="img/logo.png" alt="삼은테크" width="535" height="140">
     <span>주소 : {c["addr"]}</span><span>대표 : {c["ceo"]}</span><span>사업자등록번호 : {c["bizno"]}</span><br>
     <span>TEL : {c["tel"]}</span><span>E-Mail : <a href="mailto:{c["email"]}">{c["email"]}</a></span><br>
     COPYRIGHT &copy; 삼은테크. ALL RIGHTS RESERVED.

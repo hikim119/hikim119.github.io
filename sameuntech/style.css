@@ -36,6 +36,10 @@ html { scroll-padding-top: var(--header-h); }
 .logo { display: block; line-height: 1.1; flex: none; }
 .logo strong { display: block; font-size: 24px; font-weight: 800; letter-spacing: -.03em; }
 .logo small { display: block; font-family: var(--en); font-size: 10px; font-weight: 600; letter-spacing: .26em; opacity: .75; margin-top: 2px; }
+.logo img { display: block; height: 46px; width: auto; }
+.sm-logo { display: block; width: fit-content; margin: 4px 0 18px; }
+.sm-logo img { display: block; height: 34px; width: auto; }
+.f-logo { display: block; height: 38px; width: auto; margin-bottom: 14px; }
 .gnb { display: flex; height: 100%; gap: 0; margin-left: auto; }
 .gnb > li { position: relative; height: 100%; }
 .gnb > li > a { display: flex; align-items: center; height: 100%; padding: 0 52px; font-size: 16.5px; font-weight: 600; }
@@ -54,7 +58,7 @@ html { scroll-padding-top: var(--header-h); }
 .sitemap { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.5); display: none; }
 .sitemap.open { display: block; }
 .sitemap-inner { position: absolute; top: 0; right: 0; width: min(340px, 86vw); height: 100%; background: #fff; padding: 22px 26px 40px; overflow-y: auto; }
-.sitemap-close { display: block; margin: 0 -8px 10px auto; width: 42px; height: 42px; border: 0; background: none; cursor: pointer; font-size: 30px; line-height: 1; color: var(--ink); }
+.sitemap-close { position: absolute; top: 14px; right: 14px; display: block; margin: 0; width: 42px; height: 42px; border: 0; background: none; cursor: pointer; font-size: 30px; line-height: 1; color: var(--ink); }
 .sitemap dl { padding: 16px 0; border-top: 1px solid var(--line); }
 .sitemap dt a { font-size: 18px; font-weight: 700; color: var(--ink); }
 .sitemap dd { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; }
@@ -285,6 +289,7 @@ html { scroll-padding-top: var(--header-h); }
   .gnb { display: none; }
   .menu-btn { display: block; }
   .logo strong { font-size: 21px; }
+  .logo img { height: 36px; }
   .hero { height: 540px; background:
     linear-gradient(180deg, rgba(8,17,42,.78), rgba(8,17,42,.55)),
     url("img/hero.jpg") 78% center / cover no-repeat, var(--dark); }
