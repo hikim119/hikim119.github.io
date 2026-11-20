@@ -124,9 +124,12 @@ ul, ol { list-style: none; }
 
 .cta { padding: 90px 0 100px; }
 .cta-box {
-  border-radius: 14px; padding: 56px 60px; color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap;
-  background: radial-gradient(500px 260px at 90% 20%, rgba(59,116,232,.25), transparent 70%), var(--navy-grad);
+  border-radius: 14px; padding: 58px 70px; min-height: 300px; color: #fff;
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  background: linear-gradient(90deg, rgba(8,17,42,.92) 0%, rgba(8,17,42,.72) 38%, rgba(8,17,42,0) 72%),
+              url("img/cta-bg.jpg") right center / cover no-repeat, var(--dark);
 }
+.cta-box .tel { margin-bottom: 24px; }
 .cta-box h2 { font-size: 34px; font-weight: 800; letter-spacing: -.02em; }
 .cta-box p { font-size: 15px; color: rgba(255,255,255,.8); margin: 6px 0 16px; }
 .cta-box .tel { font-size: 15px; color: rgba(255,255,255,.85); }
@@ -291,7 +294,8 @@ ul, ol { list-style: none; }
   .prod-cards { grid-template-columns: 1fr 1fr; gap: 14px; }
   .news { grid-template-columns: 1fr; gap: 36px; }
   .cta { padding: 60px 0 70px; }
-  .cta-box { padding: 36px 26px; }
+  .cta-box { padding: 36px 26px; min-height: 0;
+    background: linear-gradient(180deg, rgba(8,17,42,.88), rgba(8,17,42,.62)), url("img/cta-bg.jpg") 75% center / cover no-repeat, var(--dark); }
   .cta-box h2 { font-size: 25px; }
   .cta-box .tel b { font-size: 23px; }
   .svisual { height: 220px; }
