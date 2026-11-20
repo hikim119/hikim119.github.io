@@ -21,6 +21,8 @@ CO = {
     "tel": "02-2083-2070", "tel_link": "0220832070", "email": "sameuntech@naver.com",
     # 카카오톡 채널 1:1 채팅 주소 (예: http://pf.kakao.com/_xxxxxx/chat). 비어 있으면 "준비 중" 안내.
     "kakao": "",
+    # 사이트 주소 (공유 미리보기·견적 전송 후 돌아올 주소). 도메인을 바꾸면 여기만 고친다.
+    "site": "https://hikim119.github.io/sameuntech/",
 }
 SIGN_TEXT = quote(CO["ceo"])  # 인사말 서명 붓글씨 폰트는 이 글자만 받는다
 
@@ -83,7 +85,8 @@ def head(title, desc):
 <meta property="og:type" content="website">
 <meta property="og:title" content="삼은테크 | SMT · 수삽 · PCB 조립">
 <meta property="og:description" content="샘플부터 소량다품종, 양산까지. 2007년부터 경기도 광명에서.">
-<meta property="og:image" content="https://hikim119.github.io/sameuntech/og.jpg">
+<meta property="og:image" content="{CO["site"]}og.jpg">
+<meta property="og:url" content="{CO["site"]}">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0f1f45">
@@ -127,7 +130,7 @@ def sub_frame(group, key):
     tabs = "".join('<li%s><a href="%s.html">%s</a></li>' % (' class="on"' if k == key else "", k, t)
                    for k, t in pages)
     return f"""<div class="svisual" style="--bg:url('img/{BANNER[group]}')">
-  <div class="wrap"><h2>{group}</h2><p>{slogan}</p></div>
+  <div class="wrap"><p class="sv-title">{group}</p><p>{slogan}</p></div>
 </div>
 <nav class="tabs" aria-label="{group} 메뉴"><ul>{tabs}</ul></nav>
 """
@@ -137,7 +140,7 @@ def footer():
     c = CO
     return f"""<footer class="footer">
   <div class="wrap">
-    <img class="f-logo" src="img/logo.png" alt="삼은테크" width="535" height="140">
+    <img class="f-logo" loading="lazy" src="img/logo.png" alt="삼은테크" width="535" height="140">
     <span>주소 : {c["addr"]}</span><span>대표 : {c["ceo"]}</span><span>사업자등록번호 : {c["bizno"]}</span><br>
     <span>TEL : {c["tel"]}</span><span>E-Mail : <a href="mailto:{c["email"]}">{c["email"]}</a></span><br>
     COPYRIGHT &copy; 삼은테크. ALL RIGHTS RESERVED.
@@ -150,7 +153,22 @@ def footer():
 """
 
 
+def cta_strip():
+    c = CO
+    return f"""<section class="cta-strip"><div class="wrap">
+  <div class="cs-text"><b>견적이 필요하신가요?</b><span>샘플 몇 장부터 양산까지, 편하게 문의하세요.</span></div>
+  <div class="cs-act">
+    <a class="cs-tel" href="tel:{c["tel_link"]}">{SVG["phone"]}{c["tel"]}</a>
+    <a class="btn btn-blue" href="quote.html">견적문의</a>
+    <a class="btn btn-kakao" href="{kakao_href()}" target="_blank" rel="noopener">{SVG["kakao"]}카카오톡</a>
+  </div>
+</div></section>
+"""
+
+
 def fill(body):
+    # 본문 사진은 화면 가까이 올 때 불러온다
+    body = body.replace('<img class="photo', '<img loading="lazy" decoding="async" class="photo')
     body = re.sub(r"\{\{ICON_(\w+)\}\}", lambda m: icon(m.group(1)), body)
     body = re.sub(r"\{\{SVG_(\w+)\}\}", lambda m: SVG[m.group(1)], body)
     body = body.replace("{{kakao_href}}", kakao_href())
@@ -176,8 +194,9 @@ def main():
            + "<main>\n" + fill(bodies["index"]) + "\n</main>\n" + footer()}
     for key, (group, title) in group_of.items():
         out[key] = (head(f"삼은테크 | {title}", desc) + header(group) + sub_frame(group, key)
-                    + f'<main class="content"><div class="wrap">\n<h3 class="c-title">{title}</h3>\n'
-                    + fill(bodies[key]) + "\n</div></main>\n" + footer())
+                    + f'<main class="content"><div class="wrap">\n<h1 class="c-title">{title}</h1>\n'
+                    + fill(bodies[key]) + "\n</div></main>\n"
+                    + (cta_strip() if key != "quote" else "") + footer())
     for key, html in out.items():
         (OUT / f"{key}.html").write_text(html, encoding="utf-8", newline="\n")
     # 메뉴에서 빠진 옛 페이지 정리

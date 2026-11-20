@@ -28,32 +28,26 @@
     });
   });
 
-  // 견적의뢰: 서버 없이 메일 앱으로 넘긴다
+  // 견적문의: FormSubmit 으로 바로 전송. 성공하면 quote.html?sent=1 로 돌아온다.
   var form = document.getElementById('quoteForm');
   if (!form) return;
+  if (/[?&]sent=1/.test(location.search)) {
+    document.getElementById('qDone').hidden = false;
+    form.hidden = true;
+    return;
+  }
   form.addEventListener('submit', function (e) {
-    e.preventDefault();
     var f = form.elements;
-    var need = [['company', '회사명'], ['name', '담당자'], ['phone', '연락처']];
+    var need = [['회사명', '회사명'], ['담당자', '담당자'], ['연락처', '연락처']];
     for (var i = 0; i < need.length; i++) {
       var el = f[need[i][0]];
-      if (!el.value.trim()) { alert(need[i][1] + '을(를) 입력해 주세요.'); el.focus(); return; }
+      if (!el.value.trim()) { e.preventDefault(); alert(need[i][1] + '을(를) 입력해 주세요.'); el.focus(); return; }
     }
-    var body = [
-      '회사명: ' + f.company.value,
-      '담당자: ' + f.name.value,
-      '연락처: ' + f.phone.value,
-      '이메일: ' + f.email.value,
-      '작업 구분: ' + f.type.value,
-      '수량: ' + f.qty.value,
-      '',
-      '요청 내용:',
-      f.msg.value,
-      '',
-      '(거버 · BOM 파일이 있으면 첨부해 주세요)'
-    ].join('\n');
-    location.href = 'mailto:sameuntech@naver.com'
-      + '?subject=' + encodeURIComponent('[견적의뢰] ' + f.company.value)
-      + '&body=' + encodeURIComponent(body);
+    var mail = f.email.value.trim();
+    if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) { e.preventDefault(); alert('이메일 주소를 확인해 주세요.'); f.email.focus(); return; }
+    f._subject.value = '[견적문의] ' + f['회사명'].value.trim();
+    var btn = document.getElementById('qSubmit');
+    btn.disabled = true;
+    btn.textContent = '보내는 중…';
   });
 })();
