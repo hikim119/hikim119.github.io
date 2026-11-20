@@ -8,6 +8,7 @@
 _build 폴더는 밑줄로 시작해서 GitHub Pages(Jekyll)가 공개하지 않는다.
 사진은 sameuntech/img/ 에 넣고 content.html 의 <div class="ph ..."> 자리를 <img class="photo"> 로 바꾼다.
 """
+import hashlib
 import re
 from pathlib import Path
 from urllib.parse import quote
@@ -68,6 +69,11 @@ def icon(name):
             + "</svg>")
 
 
+def asset(name):
+    """style.css?v=내용해시 — 고칠 때마다 주소가 바뀌어 브라우저가 옛 파일을 섞어 쓰지 않는다."""
+    return f"{name}?v={hashlib.md5((OUT / name).read_bytes()).hexdigest()[:8]}"
+
+
 def kakao_href():
     return CO["kakao"] or "#kakao"
 
@@ -95,7 +101,7 @@ def head(title, desc, extra=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&text={SIGN_TEXT}&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="{asset("style.css")}">
 {extra}</head>
 <body>
 """
@@ -147,7 +153,7 @@ def footer():
   </div>
 </footer>
 <a class="kakao-float" href="{kakao_href()}" target="_blank" rel="noopener" aria-label="카카오톡 문의">{SVG["kakao"]}<span>카카오톡 문의</span></a>
-<script src="site.js"></script>
+<script src="{asset("site.js")}"></script>
 </body>
 </html>
 """
