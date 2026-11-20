@@ -80,7 +80,10 @@ def head(title, desc):
 <meta property="og:type" content="website">
 <meta property="og:title" content="삼은테크 | SMT · 수삽 · PCB 조립">
 <meta property="og:description" content="샘플부터 소량다품종, 양산까지. 2007년부터 경기도 광명에서.">
-<meta property="og:image" content="https://hikim119.github.io/sameuntech/og.png">
+<meta property="og:image" content="https://hikim119.github.io/sameuntech/og.jpg">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0f1f45">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -165,10 +168,11 @@ def main():
         raise SystemExit(f"content.html 에 없는 페이지: {sorted(missing)}")
 
     desc = "삼은테크는 2007년부터 경기도 광명에서 SMT 실장, 수삽, PCB 조립을 해 온 전자부품 제조 기업입니다."
-    out = {"index": head("삼은테크 | SMT · 수삽 · PCB 조립", desc) + header(None)
+    # 탭에 회사 이름이 먼저 보이게
+    out = {"index": head("삼은테크", desc) + header(None)
            + "<main>\n" + fill(bodies["index"]) + "\n</main>\n" + footer()}
     for key, (group, title) in group_of.items():
-        out[key] = (head(f"{title} | 삼은테크", desc) + header(group) + sub_frame(group, key)
+        out[key] = (head(f"삼은테크 | {title}", desc) + header(group) + sub_frame(group, key)
                     + f'<main class="content"><div class="wrap">\n<h3 class="c-title">{title}</h3>\n'
                     + fill(bodies[key]) + "\n</div></main>\n" + footer())
     for key, html in out.items():
