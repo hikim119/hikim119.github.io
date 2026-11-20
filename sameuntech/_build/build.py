@@ -72,7 +72,7 @@ def kakao_href():
     return CO["kakao"] or "#kakao"
 
 
-def head(title, desc):
+def head(title, desc, extra=""):
     return f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -96,7 +96,7 @@ def head(title, desc):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&text={SIGN_TEXT}&display=swap">
 <link rel="stylesheet" href="style.css">
-</head>
+{extra}</head>
 <body>
 """
 
@@ -153,6 +153,32 @@ def footer():
 """
 
 
+def json_ld():
+    """검색엔진이 회사 이름·주소·전화를 읽어 가는 정보."""
+    import json
+    c = CO
+    data = {
+        "@context": "https://schema.org", "@type": "LocalBusiness",
+        "name": "삼은테크", "alternateName": "SAMEUN TECH", "url": c["site"],
+        "logo": c["site"] + "img/logo.png", "image": c["site"] + "og.jpg",
+        "telephone": "+82-2-2083-2070", "email": c["email"], "foundingDate": "2007-11",
+        "description": "SMT 실장, 수삽(PBA), PCB 조립 전문. 샘플부터 소량다품종, 양산까지.",
+        "address": {"@type": "PostalAddress", "streetAddress": "하안로 60, 광명SK테크노파크 C동 902호",
+                    "addressLocality": "광명시", "addressRegion": "경기도", "postalCode": "14322", "addressCountry": "KR"},
+    }
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>\n"
+
+
+def not_found():
+    return """<main class="nf"><div class="wrap">
+  <p class="nf-code">404</p>
+  <h1>페이지를 찾을 수 없습니다.</h1>
+  <p>주소가 바뀌었거나 없는 페이지입니다.</p>
+  <div class="nf-btns"><a class="btn btn-blue" href="index.html">처음으로</a><a class="btn btn-line-dark" href="quote.html">견적문의</a></div>
+</div></main>
+"""
+
+
 def cta_strip():
     c = CO
     return f"""<section class="cta-strip"><div class="wrap">
@@ -188,15 +214,18 @@ def main():
     if missing:
         raise SystemExit(f"content.html 에 없는 페이지: {sorted(missing)}")
 
-    desc = "삼은테크는 2007년부터 경기도 광명에서 SMT 실장, 수삽, PCB 조립을 해 온 전자부품 제조 기업입니다."
+    base_desc = "2007년부터 경기도 광명에서 SMT 실장, 수삽, PCB 조립을 해 온 전자부품 제조 기업입니다."
+    desc = "삼은테크는 " + base_desc
     # 탭에 회사 이름이 먼저 보이게
-    out = {"index": head("삼은테크", desc) + header(None)
+    out = {"index": head("삼은테크", desc, json_ld()) + header(None)
            + "<main>\n" + fill(bodies["index"]) + "\n</main>\n" + footer()}
     for key, (group, title) in group_of.items():
-        out[key] = (head(f"삼은테크 | {title}", desc) + header(group) + sub_frame(group, key)
+        out[key] = (head(f"삼은테크 | {title}", f"삼은테크 {title} — {base_desc}") + header(group) + sub_frame(group, key)
                     + f'<main class="content"><div class="wrap">\n<h1 class="c-title">{title}</h1>\n'
                     + fill(bodies[key]) + "\n</div></main>\n"
                     + (cta_strip() if key != "quote" else "") + footer())
+    out["404"] = (head("삼은테크 | 페이지를 찾을 수 없습니다", desc, f'<base href="{CO["site"]}">\n')
+                  + header(None) + not_found() + footer())
     for key, html in out.items():
         (OUT / f"{key}.html").write_text(html, encoding="utf-8", newline="\n")
     # 메뉴에서 빠진 옛 페이지 정리
