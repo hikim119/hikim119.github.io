@@ -158,6 +158,12 @@ ul, ol { list-style: none; }
 .split p + p { margin-top: 12px; }
 .split .sign { margin-top: 26px; color: var(--muted); }
 .split .sign strong { font-size: 24px; color: var(--ink); font-weight: 600; margin-left: 6px; letter-spacing: .06em; }
+.split.wide { grid-template-columns: 1fr 1.15fr; margin-top: 56px; }
+.split.wide h4 { font-size: 31px; line-height: 1.5; }
+.split.wide .lead { font-size: 17.5px; line-height: 1.6; margin-bottom: 20px; }
+.split.wide p { font-size: 16.5px; line-height: 1.85; }
+.split.wide p + p { margin-top: 16px; }
+.signature { font-family: "Nanum Brush Script", cursive; font-size: 38px; color: var(--ink); margin-left: 10px; vertical-align: -6px; line-height: 1; }
 .biz-block + .biz-block { margin-top: 90px; }
 .biz-block dl { margin-top: 16px; }
 .biz-block dt { font-weight: 700; color: var(--ink); margin-top: 14px; }
@@ -302,6 +308,11 @@ ul, ol { list-style: none; }
   .split { grid-template-columns: 1fr; gap: 18px; margin-top: 28px; }
   .split h4 { font-size: 22px; }
   .split h4 br { display: none; }
+  .split.wide { grid-template-columns: 1fr; margin-top: 32px; }
+  .split.wide h4 { font-size: 24px; }
+  .split.wide h4 br { display: inline; }
+  .split.wide p br { display: none; }
+  .split.wide p { font-size: 15.5px; }
   .biz-block + .biz-block { margin-top: 64px; }
   .tbl { font-size: 14.5px; }
   .tbl.info th { width: 100px; padding: 13px 10px; }

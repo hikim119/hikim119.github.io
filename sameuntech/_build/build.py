@@ -10,6 +10,7 @@ _build 폴더는 밑줄로 시작해서 GitHub Pages(Jekyll)가 공개하지 않
 """
 import re
 from pathlib import Path
+from urllib.parse import quote
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent
@@ -21,6 +22,7 @@ CO = {
     # 카카오톡 채널 1:1 채팅 주소 (예: http://pf.kakao.com/_xxxxxx/chat). 비어 있으면 "준비 중" 안내.
     "kakao": "",
 }
+SIGN_TEXT = quote(CO["ceo"])  # 인사말 서명 붓글씨 폰트는 이 글자만 받는다
 
 # (그룹 이름, 배너 한 줄, [(파일 이름, 페이지 제목), ...]) — 첫 페이지가 그룹 대표 링크
 MENU = [
@@ -83,6 +85,7 @@ def head(title, desc):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&text={SIGN_TEXT}&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
