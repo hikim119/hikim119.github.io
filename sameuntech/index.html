@@ -11,99 +11,134 @@
 <meta property="og:title" content="삼은테크 | SMT · 수삽 · PCB 조립">
 <meta property="og:description" content="샘플부터 소량다품종, 양산까지. 2007년부터 경기도 광명에서.">
 <meta property="og:image" content="https://hikim119.github.io/sameuntech/og.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="header">
   <div class="wrap">
     <a class="logo" href="index.html"><strong>삼은테크</strong><small>SAMEUN TECH</small></a>
-    <ul class="gnb"><li><a href="greeting.html">회사소개</a><div class="sub"><a href="greeting.html">CEO 인사말</a><a href="overview.html">개요</a><a href="history.html">연혁</a><a href="organization.html">조직도</a><a href="location.html">찾아오시는 길</a></div></li><li><a href="flow.html">제조시스템</a><div class="sub"><a href="flow.html">제조흐름도/고객발주</a><a href="equipment.html">제조설비현황</a></div></li><li><a href="smt.html">제조공정</a><div class="sub"><a href="smt.html">제조공정(SMT)</a><a href="pba.html">제조공정(PBA·조립)</a></div></li><li><a href="products.html">제조품목</a></li><li><a href="quote.html">고객센터</a><div class="sub"><a href="quote.html">견적의뢰</a><a href="notice.html">공지사항</a></div></li></ul>
-    <div class="util">
-      <a class="home" href="index.html" aria-label="처음으로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 11 12 3l9 8M5.5 9v11.5h13V9"/><path d="M10 20.5v-6h4v6"/></svg></a>
-      <a href="quote.html" aria-label="견적의뢰"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14"/><path d="m2.5 5 9.5 8 9.5-8M2.5 19l7-6.5M21.5 19l-7-6.5"/></svg></a>
-      <button type="button" id="menuOpen" aria-label="전체 메뉴" aria-expanded="false" aria-controls="sitemap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-    </div>
+    <ul class="gnb"><li><a href="greeting.html">회사소개</a><div class="sub"><a href="greeting.html">인사말</a><a href="history.html">연혁</a><a href="location.html">오시는길</a></div></li><li><a href="business.html">사업내용</a><div class="sub"><a href="business.html">사업분야</a><a href="process.html">제조공정</a><a href="equipment.html">제조설비</a><a href="products.html">취급품목</a></div></li><li><a href="quote.html">견적문의</a></li><li><a href="notice.html">고객센터</a></li></ul>
+    <button type="button" class="menu-btn" id="menuOpen" aria-label="전체 메뉴" aria-expanded="false" aria-controls="sitemap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
   </div>
 </header>
 <div class="sitemap" id="sitemap"><div class="sitemap-inner">
   <button type="button" class="sitemap-close" id="menuClose" aria-label="메뉴 닫기">&times;</button>
-  <dl><dt><a href="index.html">처음으로</a></dt></dl><dl><dt><a href="greeting.html">회사소개</a></dt><dd><a href="greeting.html">CEO 인사말</a><a href="overview.html">개요</a><a href="history.html">연혁</a><a href="organization.html">조직도</a><a href="location.html">찾아오시는 길</a></dd></dl><dl><dt><a href="flow.html">제조시스템</a></dt><dd><a href="flow.html">제조흐름도/고객발주</a><a href="equipment.html">제조설비현황</a></dd></dl><dl><dt><a href="smt.html">제조공정</a></dt><dd><a href="smt.html">제조공정(SMT)</a><a href="pba.html">제조공정(PBA·조립)</a></dd></dl><dl><dt><a href="products.html">제조품목</a></dt></dl><dl><dt><a href="quote.html">고객센터</a></dt><dd><a href="quote.html">견적의뢰</a><a href="notice.html">공지사항</a></dd></dl>
+  <dl><dt><a href="index.html">처음으로</a></dt></dl><dl><dt><a href="greeting.html">회사소개</a></dt><dd><a href="greeting.html">인사말</a><a href="history.html">연혁</a><a href="location.html">오시는길</a></dd></dl><dl><dt><a href="business.html">사업내용</a></dt><dd><a href="business.html">사업분야</a><a href="process.html">제조공정</a><a href="equipment.html">제조설비</a><a href="products.html">취급품목</a></dd></dl><dl><dt><a href="quote.html">견적문의</a></dt></dl><dl><dt><a href="notice.html">고객센터</a></dt></dl>
 </div></div>
 <main>
-<section class="mv">
-  <div>
-    <p class="mv-co">삼 은 테 크</p>
-    <h2>SMT · 수삽 · PCB 조립</h2>
-    <p class="mv-desc">샘플부터 소량다품종, 양산까지 <br>정확한 납기와 품질로 보답하겠습니다.</p>
-  </div>
-</section>
-
-<section class="m-sec">
-  <div class="wrap">
-    <h2 class="m-title">MANUFACTURING SYSTEMS</h2>
-    <p class="m-desc">자재 입고부터 SMT, 수삽, 검사, 출하까지 한 곳에서 처리합니다. <br>정확한 납기와 품질, 합리적인 가격으로 고객님께 보답하겠습니다.</p>
-    <ol class="m-flow">
-      <li><a href="flow.html"><span class="ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="12" width="48" height="40" rx="3"/><circle cx="16" cy="20" r="2.5"/><circle cx="48" cy="44" r="2.5"/><path d="M18 42h10l6-6h12M18 32h8"/><rect fill="#3b7be6" stroke="none" x="32" y="18" width="14" height="10" rx="1"/></svg></span><b>자재 입고</b></a></li>
-      <li><a href="smt.html"><span class="ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="18" y="18" width="28" height="28" rx="3"/><rect fill="#3b7be6" stroke="none" x="25" y="25" width="14" height="14" rx="2"/><path d="M25 18v-8M32 18v-8M39 18v-8M25 54v-8M32 54v-8M39 54v-8M18 25h-8M18 32h-8M18 39h-8M54 25h-8M54 32h-8M54 39h-8"/></svg></span><b>SMT</b></a></li>
-      <li><a href="pba.html"><span class="ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M36 28 50 14a4.2 4.2 0 0 1 6 6L42 34"/><path d="M36 28l-5 5 6 6 5-5"/><path d="M31 33 15 49"/><path d="M6 58h24"/><circle fill="#3b7be6" stroke="none" cx="13" cy="51" r="4"/></svg></span><b>수삽 · 조립</b></a></li>
-      <li><a href="flow.html"><span class="ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16h32v28H5z"/><path d="M37 24h13l9 11v9H37z"/><circle cx="15" cy="47" r="5" fill="#fff"/><circle cx="48" cy="47" r="5" fill="#fff"/><rect fill="#3b7be6" stroke="none" x="11" y="22" width="12" height="8"/></svg></span><b>검사 · 출하</b></a></li>
-    </ol>
-  </div>
-</section>
-
-<section class="m-sec gray">
-  <div class="wrap">
-    <h2 class="m-title dark">MANUFACTURING PROCESS</h2>
-    <div class="m-proc">
-      <h3>SMT</h3>
-      <p>PCB 위에 솔더(유연 · 무연)를 인쇄하고 칩 마운터로 SMD 부품을 정해진 위치에 실장한 뒤 <br>리플로우를 통과시켜 접합하는 공정입니다.</p>
-      <a class="ph ph-wide" href="smt.html">사진: SMT 라인 전경 (가로로 넓게)</a>
-    </div>
-    <div class="m-proc">
-      <h3>PBA</h3>
-      <p>SMT로 실장할 수 없는 삽입 부품을 손으로 PCB에 꽂고 <br>납땜하는 공정입니다.</p>
-      <a class="ph ph-wide" href="pba.html">사진: 수삽 · 납땜 작업대</a>
+<section class="hero">
+  <div class="wrap hero-text">
+    <small>SAMEUN TECH</small>
+    <h2>SMT · 수삽 · PCB 조립 <br>샘플부터 양산까지</h2>
+    <p>2007년부터 경기도 광명에서, 정확한 납기와 품질로 보답하겠습니다.</p>
+    <div class="hero-btns">
+      <a class="btn btn-white" href="quote.html">견적문의</a>
+      <a class="btn btn-line" href="business.html">사업분야 보기</a>
     </div>
   </div>
+  <div class="ph dark">메인 사진 자리 (작업장 · 기판 클로즈업)</div>
 </section>
 
-<section class="m-sec">
+<section class="intro">
   <div class="wrap">
-    <h2 class="m-title dark">제조품목</h2>
-    <div class="goods-grid">
-      <a class="ph ph-sq" href="products.html">사진: 완성 기판 1</a>
-      <a class="ph ph-sq" href="products.html">사진: 완성 기판 2</a>
-      <a class="ph ph-sq" href="products.html">사진: 완성 기판 3</a>
-      <a class="ph ph-sq" href="products.html">사진: 완성 기판 4</a>
-      <a class="ph ph-sq" href="products.html">사진: 완성 기판 5</a>
-      <a class="ph ph-sq" href="products.html">사진: 완성 기판 6</a>
+    <div>
+      <h2>샘플부터 <br>양산까지!</h2>
+      <p>삼은테크는 2007년부터 SMT 실장과 수삽, PCB 조립을 해 온 전자부품 제조 기업입니다. <br>
+      개발 단계 샘플 몇 장부터 소량다품종, 양산 제품까지 고객이 원하는 수량과 납기에 맞춰 작업합니다.</p>
+      <p>앞선 기술과 품질, 최적의 시스템으로 내부 역량을 강화하여 <br>
+      고객 중심의 품질보증시스템을 구축하겠습니다.</p>
     </div>
-    <a class="btn-more" href="products.html">제품 더보기</a>
+    <div class="ph">사진: 기판 클로즈업 또는 SMT 라인</div>
   </div>
 </section>
 
-<section class="counsel">
+<section class="sec gray">
   <div class="wrap">
-    <p class="counsel-sm">견적상담</p>
-    <p class="counsel-big">샘플 한 장도 정성껏, <br><span>삼은테크</span>가 함께하겠습니다.</p>
-    <a class="counsel-btn" href="quote.html">견적의뢰하기</a>
-    <p class="counsel-tel">TEL <a href="tel:0220832070">02-2083-2070</a></p>
+    <h2 class="sec-title">Our Business</h2>
+    <div class="biz-cards">
+      <a class="biz-card" href="business.html#smt">
+        <div class="ph">사진: 칩마운터 · SMT 라인</div>
+        <h3>SMT 실장</h3>
+        <p>솔더를 인쇄하고 칩 마운터로 SMD 부품을 실장한 뒤 <br>리플로우로 접합합니다.</p>
+      </a>
+      <a class="biz-card" href="business.html#pba">
+        <div class="ph">사진: 수삽 · 납땜하는 손</div>
+        <h3>수삽 · 납땜</h3>
+        <p>SMT로 올릴 수 없는 삽입 부품을 <br>손으로 꽂고 꼼꼼히 납땜합니다.</p>
+      </a>
+      <a class="biz-card" href="business.html#assy">
+        <div class="ph">사진: 검사 · 포장 작업</div>
+        <h3>조립 · 검사 · 출하</h3>
+        <p>완성된 기판을 조립하고 외관 · 납땜을 검사한 뒤 <br>약속한 날짜에 출하합니다.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2 class="sec-title">Product Line</h2>
+    <div class="prod-cards">
+      <a class="prod-card" href="products.html"><div class="box"><div class="ph">제품 사진</div></div><h3>제품명 1</h3></a>
+      <a class="prod-card" href="products.html"><div class="box"><div class="ph">제품 사진</div></div><h3>제품명 2</h3></a>
+      <a class="prod-card" href="products.html"><div class="box"><div class="ph">제품 사진</div></div><h3>제품명 3</h3></a>
+      <a class="prod-card" href="products.html"><div class="box"><div class="ph">제품 사진</div></div><h3>제품명 4</h3></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec sky">
+  <div class="wrap">
+    <h2 class="sec-title">NEWSROOM</h2>
+    <div class="news">
+      <div>
+        <h3>공지사항</h3>
+        <ul class="news-list">
+          <li><a href="notice.html"><b>견적 문의는 전화 · 이메일 · 카카오톡으로 가능합니다.</b><time>2026.11.20</time></a></li>
+          <li><a href="notice.html"><b>삼은테크 홈페이지를 열었습니다.</b><time>2026.11.20</time></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>문의하기</h3>
+        <div class="quick">
+          <a href="tel:0220832070"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span><small>전화</small><strong>02-2083-2070</strong></span></a>
+          <a href="mailto:sameuntech@naver.com"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><span><small>이메일</small><strong>sameuntech@naver.com</strong></span></a>
+          <a href="#kakao" target="_blank" rel="noopener"><span class="ic k"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.5c-5.2 0-9.5 3.3-9.5 7.4 0 2.6 1.7 4.9 4.3 6.2l-1 3.7c-.1.3.3.6.6.4l4.3-2.9c.4 0 .9.1 1.3.1 5.2 0 9.5-3.3 9.5-7.4S17.2 3.5 12 3.5z"/></svg></span><span><small>카카오톡</small><strong>카카오톡으로 문의하기</strong></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-box">
+      <div>
+        <h2>견적이 필요하신가요?</h2>
+        <p>샘플 몇 장부터 양산까지, 편하게 문의하세요.</p>
+        <p class="tel">TEL. <b>02-2083-2070</b></p>
+      </div>
+      <div class="cta-btns">
+        <a class="btn btn-white" href="quote.html">견적문의</a>
+        <a class="btn btn-kakao" href="#kakao" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.5c-5.2 0-9.5 3.3-9.5 7.4 0 2.6 1.7 4.9 4.3 6.2l-1 3.7c-.1.3.3.6.6.4l4.3-2.9c.4 0 .9.1 1.3.1 5.2 0 9.5-3.3 9.5-7.4S17.2 3.5 12 3.5z"/></svg>카카오톡 문의</a>
+      </div>
+    </div>
   </div>
 </section>
 </main>
 <footer class="footer">
   <div class="wrap">
-    <a class="logo" href="index.html"><strong>삼은테크</strong><small>SAMEUN TECH</small></a>
-    <div class="f-info">
-      <p><span>상호 : 삼은테크</span><span>대표자 : 김광현</span><span>사업자등록번호 : 221-23-60415</span><span>E-mail : sameuntech@naver.com</span></p>
-      <p><span>주소 : 경기도 광명시 하안로 60, 광명SK테크노파크 C동 902호</span><span>전화 : 02-2083-2070</span></p>
-      <p class="f-copy">Copyright &copy; 삼은테크 All Rights Reserved</p>
-    </div>
+    <b>삼은테크</b><br>
+    <span>주소 : 경기도 광명시 하안로 60, 광명SK테크노파크 C동 902호</span><span>대표 : 김광현</span><span>사업자등록번호 : 221-23-60415</span><br>
+    <span>TEL : 02-2083-2070</span><span>E-Mail : <a href="mailto:sameuntech@naver.com">sameuntech@naver.com</a></span><br>
+    COPYRIGHT &copy; 삼은테크. ALL RIGHTS RESERVED.
   </div>
 </footer>
+<a class="kakao-float" href="#kakao" target="_blank" rel="noopener" aria-label="카카오톡 문의"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.5c-5.2 0-9.5 3.3-9.5 7.4 0 2.6 1.7 4.9 4.3 6.2l-1 3.7c-.1.3.3.6.6.4l4.3-2.9c.4 0 .9.1 1.3.1 5.2 0 9.5-3.3 9.5-7.4S17.2 3.5 12 3.5z"/></svg><span>카카오톡 문의</span></a>
 <script src="site.js"></script>
 </body>
 </html>

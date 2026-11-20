@@ -6,7 +6,7 @@
     python sameuntech/_build/build.py
 
 _build 폴더는 밑줄로 시작해서 GitHub Pages(Jekyll)가 공개하지 않는다.
-사진은 sameuntech/img/ 에 넣고 content.html 의 <div class="ph ..."> 자리를 <img> 로 바꾼다.
+사진은 sameuntech/img/ 에 넣고 content.html 의 <div class="ph ..."> 자리를 <img class="photo"> 로 바꾼다.
 """
 import re
 from pathlib import Path
@@ -18,43 +18,51 @@ CO = {
     "name": "삼은테크", "ceo": "김광현", "bizno": "221-23-60415",
     "addr": "경기도 광명시 하안로 60, 광명SK테크노파크 C동 902호",
     "tel": "02-2083-2070", "tel_link": "0220832070", "email": "sameuntech@naver.com",
+    # 카카오톡 채널 1:1 채팅 주소 (예: http://pf.kakao.com/_xxxxxx/chat). 비어 있으면 "준비 중" 안내.
+    "kakao": "",
 }
 
-# (그룹 이름, [(파일 이름, 페이지 제목), ...]) — 첫 페이지가 그룹 대표 링크
+# (그룹 이름, 배너 한 줄, [(파일 이름, 페이지 제목), ...]) — 첫 페이지가 그룹 대표 링크
 MENU = [
-    ("회사소개", [("greeting", "CEO 인사말"), ("overview", "개요"), ("history", "연혁"),
-                ("organization", "조직도"), ("location", "찾아오시는 길")]),
-    ("제조시스템", [("flow", "제조흐름도/고객발주"), ("equipment", "제조설비현황")]),
-    ("제조공정", [("smt", "제조공정(SMT)"), ("pba", "제조공정(PBA·조립)")]),
-    ("제조품목", [("products", "제조품목")]),
-    ("고객센터", [("quote", "견적의뢰"), ("notice", "공지사항")]),
+    ("회사소개", "삼은테크는 2007년부터 경기도 광명에서 SMT · 수삽 · PCB 조립을 해 왔습니다.",
+     [("greeting", "인사말"), ("history", "연혁"), ("location", "오시는길")]),
+    ("사업내용", "샘플부터 소량다품종, 양산까지 정확한 납기와 품질로 보답하겠습니다.",
+     [("business", "사업분야"), ("process", "제조공정"), ("equipment", "제조설비"), ("products", "취급품목")]),
+    ("견적문의", "도면과 수량을 알려 주시면 검토 후 견적을 드립니다.",
+     [("quote", "견적문의")]),
+    ("고객센터", "궁금한 점이 있으시면 언제든지 연락 주십시오.",
+     [("notice", "공지사항")]),
 ]
 
-# 선 아이콘 (64x64). class="ac" 는 파란 강조.
+# 선 아이콘 (64x64). class="ac" 는 강조색 채움, class="acs" 는 강조색 선.
 _IC = {
-    "pcb": '<rect x="8" y="12" width="48" height="40" rx="3"/><circle cx="16" cy="20" r="2.5"/><circle cx="48" cy="44" r="2.5"/><path d="M18 42h10l6-6h12M18 32h8"/><rect class="ac" x="32" y="18" width="14" height="10" rx="1"/>',
     "chip": '<rect x="18" y="18" width="28" height="28" rx="3"/><rect class="ac" x="25" y="25" width="14" height="14" rx="2"/><path d="M25 18v-8M32 18v-8M39 18v-8M25 54v-8M32 54v-8M39 54v-8M18 25h-8M18 32h-8M18 39h-8M54 25h-8M54 32h-8M54 39h-8"/>',
     "iron": '<path d="M36 28 50 14a4.2 4.2 0 0 1 6 6L42 34"/><path d="M36 28l-5 5 6 6 5-5"/><path d="M31 33 15 49"/><path d="M6 58h24"/><circle class="ac" cx="13" cy="51" r="4"/>',
     "inspect": '<circle cx="27" cy="27" r="16"/><path d="M39 39l15 15"/><path class="acs" d="M20 27l5 5 9-10"/>',
-    "truck": '<path d="M5 16h32v28H5z"/><path d="M37 24h13l9 11v9H37z"/><circle cx="15" cy="47" r="5" fill="#fff"/><circle cx="48" cy="47" r="5" fill="#fff"/><rect class="ac" x="11" y="22" width="12" height="8"/>',
+    "truck": '<path d="M5 16h32v28H5z"/><path d="M37 24h13l9 11v9H37z"/><circle cx="15" cy="47" r="5"/><circle cx="48" cy="47" r="5"/>',
     "doc": '<path d="M15 6h24l11 11v41H15z"/><path d="M39 6v11h11"/><path d="M22 28h20M22 36h20M22 44h12"/>',
-    "box": '<path d="M32 6 56 18v28L32 58 8 46V18z"/><path d="M8 18l24 12 24-12M32 30v28"/><path class="acs" d="M20 12l24 12"/>',
-    "building": '<path d="M14 56V12h36v44"/><path d="M8 56h48"/><path d="M22 20v28M30 20v28M38 20v28M46 20"/><rect class="ac" x="28" y="44" width="8" height="12"/>',
-    "growth": '<rect x="8" y="40" width="10" height="16"/><rect x="24" y="30" width="10" height="26"/><rect class="ac" x="40" y="20" width="10" height="36"/><path d="M8 28c12-8 22-12 38-20"/><path d="M39 7h8v8"/>',
+    "order": '<rect x="14" y="10" width="36" height="46" rx="3"/><path d="M24 10V6h16v4"/><path class="acs" d="M22 30l5 5 9-10"/><path d="M22 44h20"/>',
+    "box": '<path d="M32 6 56 18v28L32 58 8 46V18z"/><path d="M8 18l24 12 24-12M32 30v28"/>',
+    "pack": '<rect x="8" y="24" width="48" height="32" rx="2"/><path d="M4 16h56v8H4z"/><path class="acs" d="M32 16v40"/><path d="M32 16c-6-10-16-8-14-2s14 2 14 2c6-10 16-8 14-2s-14 2-14 2"/>',
+}
+SVG = {
+    "phone": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
+    "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>',
+    "kakao": '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.5c-5.2 0-9.5 3.3-9.5 7.4 0 2.6 1.7 4.9 4.3 6.2l-1 3.7c-.1.3.3.6.6.4l4.3-2.9c.4 0 .9.1 1.3.1 5.2 0 9.5-3.3 9.5-7.4S17.2 3.5 12 3.5z"/></svg>',
+    "menu": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>',
 }
 
 
 def icon(name):
-    return ('<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" '
+    return ('<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.8" '
             'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-            + _IC[name].replace('class="ac"', 'fill="#3b7be6" stroke="none"')
-                       .replace('class="acs"', 'stroke="#3b7be6"')
+            + _IC[name].replace('class="ac"', 'fill="currentColor" stroke="none" opacity=".35"')
+                       .replace('class="acs"', 'opacity=".55"')
             + "</svg>")
 
 
-SVG_HOME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 11 12 3l9 8M5.5 9v11.5h13V9"/><path d="M10 20.5v-6h4v6"/></svg>'
-SVG_MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14"/><path d="m2.5 5 9.5 8 9.5-8M2.5 19l7-6.5M21.5 19l-7-6.5"/></svg>'
-SVG_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>'
+def kakao_href():
+    return CO["kakao"] or "#kakao"
 
 
 def head(title, desc):
@@ -71,9 +79,10 @@ def head(title, desc):
 <meta property="og:title" content="삼은테크 | SMT · 수삽 · PCB 조립">
 <meta property="og:description" content="샘플부터 소량다품종, 양산까지. 2007년부터 경기도 광명에서.">
 <meta property="og:image" content="https://hikim119.github.io/sameuntech/og.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -81,26 +90,19 @@ def head(title, desc):
 
 
 def header(group):
-    items = []
-    for g, pages in MENU:
-        sub = "".join(f'<a href="{k}.html">{t}</a>' for k, t in pages) if len(pages) > 1 else ""
-        on = ' class="on"' if g == group else ""
-        items.append(f'<li{on}><a href="{pages[0][0]}.html">{g}</a>'
-                     + (f'<div class="sub">{sub}</div>' if sub else "") + "</li>")
-    smap = ""
-    for g, pages in MENU:
+    items, smap = [], ""
+    for g, _, pages in MENU:
         links = "".join('<a href="%s.html">%s</a>' % (k, t) for k, t in pages)
+        many = len(pages) > 1
+        items.append('<li%s><a href="%s.html">%s</a>%s</li>' % (
+            ' class="on"' if g == group else "", pages[0][0], g, f'<div class="sub">{links}</div>' if many else ""))
         smap += (f'<dl><dt><a href="{pages[0][0]}.html">{g}</a></dt>'
-                 + (f"<dd>{links}</dd>" if len(pages) > 1 else "") + "</dl>")
+                 + (f"<dd>{links}</dd>" if many else "") + "</dl>")
     return f"""<header class="header">
   <div class="wrap">
     <a class="logo" href="index.html"><strong>삼은테크</strong><small>SAMEUN TECH</small></a>
     <ul class="gnb">{"".join(items)}</ul>
-    <div class="util">
-      <a class="home" href="index.html" aria-label="처음으로">{SVG_HOME}</a>
-      <a href="quote.html" aria-label="견적의뢰">{SVG_MAIL}</a>
-      <button type="button" id="menuOpen" aria-label="전체 메뉴" aria-expanded="false" aria-controls="sitemap">{SVG_MENU}</button>
-    </div>
+    <button type="button" class="menu-btn" id="menuOpen" aria-label="전체 메뉴" aria-expanded="false" aria-controls="sitemap">{SVG["menu"]}</button>
   </div>
 </header>
 <div class="sitemap" id="sitemap"><div class="sitemap-inner">
@@ -111,11 +113,14 @@ def header(group):
 
 
 def sub_frame(group, key):
-    pages = dict(MENU)[group]
+    slogan, pages = next((s, p) for g, s, p in MENU if g == group)
     tabs = "".join('<li%s><a href="%s.html">%s</a></li>' % (' class="on"' if k == key else "", k, t)
                    for k, t in pages)
-    return f"""<div class="svisual"><h2>{group}</h2></div>
-<nav class="lnb" aria-label="{group} 메뉴"><ul>{tabs}</ul></nav>
+    return f"""<div class="svisual">
+  <div class="wrap"><h2>{group}</h2><p>{slogan}</p></div>
+  <div class="ph dark">배너 사진 자리</div>
+</div>
+<nav class="tabs" aria-label="{group} 메뉴"><ul>{tabs}</ul></nav>
 """
 
 
@@ -123,14 +128,13 @@ def footer():
     c = CO
     return f"""<footer class="footer">
   <div class="wrap">
-    <a class="logo" href="index.html"><strong>삼은테크</strong><small>SAMEUN TECH</small></a>
-    <div class="f-info">
-      <p><span>상호 : {c["name"]}</span><span>대표자 : {c["ceo"]}</span><span>사업자등록번호 : {c["bizno"]}</span><span>E-mail : {c["email"]}</span></p>
-      <p><span>주소 : {c["addr"]}</span><span>전화 : {c["tel"]}</span></p>
-      <p class="f-copy">Copyright &copy; 삼은테크 All Rights Reserved</p>
-    </div>
+    <b>{c["name"]}</b><br>
+    <span>주소 : {c["addr"]}</span><span>대표 : {c["ceo"]}</span><span>사업자등록번호 : {c["bizno"]}</span><br>
+    <span>TEL : {c["tel"]}</span><span>E-Mail : <a href="mailto:{c["email"]}">{c["email"]}</a></span><br>
+    COPYRIGHT &copy; 삼은테크. ALL RIGHTS RESERVED.
   </div>
 </footer>
+<a class="kakao-float" href="{kakao_href()}" target="_blank" rel="noopener" aria-label="카카오톡 문의">{SVG["kakao"]}<span>카카오톡 문의</span></a>
 <script src="site.js"></script>
 </body>
 </html>
@@ -139,6 +143,8 @@ def footer():
 
 def fill(body):
     body = re.sub(r"\{\{ICON_(\w+)\}\}", lambda m: icon(m.group(1)), body)
+    body = re.sub(r"\{\{SVG_(\w+)\}\}", lambda m: SVG[m.group(1)], body)
+    body = body.replace("{{kakao_href}}", kakao_href())
     for k, v in CO.items():
         body = body.replace("{{" + k + "}}", v)
     if "{{" in body:
@@ -150,7 +156,7 @@ def main():
     text = (HERE / "content.html").read_text(encoding="utf-8")
     parts = re.split(r"^<!-- @page (\w+) -->[ \t]*$", text, flags=re.M)
     bodies = {parts[i]: parts[i + 1].strip() for i in range(1, len(parts), 2)}
-    group_of = {k: (g, t) for g, pages in MENU for k, t in pages}
+    group_of = {k: (g, t) for g, _, pages in MENU for k, t in pages}
     missing = (set(group_of) | {"index"}) - set(bodies)
     if missing:
         raise SystemExit(f"content.html 에 없는 페이지: {sorted(missing)}")
@@ -160,10 +166,15 @@ def main():
            + "<main>\n" + fill(bodies["index"]) + "\n</main>\n" + footer()}
     for key, (group, title) in group_of.items():
         out[key] = (head(f"{title} | 삼은테크", desc) + header(group) + sub_frame(group, key)
-                    + f'<main class="content"><div class="wrap">\n{fill(bodies[key])}\n</div></main>\n' + footer())
+                    + f'<main class="content"><div class="wrap">\n<h3 class="c-title">{title}</h3>\n'
+                    + fill(bodies[key]) + "\n</div></main>\n" + footer())
     for key, html in out.items():
         (OUT / f"{key}.html").write_text(html, encoding="utf-8", newline="\n")
-    print("built", len(out), "pages:", ", ".join(out))
+    # 메뉴에서 빠진 옛 페이지 정리
+    stale = [p.name for p in OUT.glob("*.html") if p.stem not in out]
+    for name in stale:
+        (OUT / name).unlink()
+    print("built", len(out), "pages:", ", ".join(out), "| removed:", ", ".join(stale) or "-")
 
 
 if __name__ == "__main__":

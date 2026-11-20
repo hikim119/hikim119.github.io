@@ -13,6 +13,15 @@
   sitemap.addEventListener('click', function (e) { if (e.target === sitemap) setOpen(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
 
+  // 카카오톡 채널 주소가 아직 없을 때(build.py CO["kakao"] 가 비어 있음)
+  document.querySelectorAll('a[href="#kakao"]').forEach(function (a) {
+    a.removeAttribute('target');
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      alert('카카오톡 채널을 준비 중입니다.\n전화 02-2083-2070 또는 sameuntech@naver.com 으로 문의해 주세요.');
+    });
+  });
+
   // 견적의뢰: 서버 없이 메일 앱으로 넘긴다
   var form = document.getElementById('quoteForm');
   if (!form) return;
