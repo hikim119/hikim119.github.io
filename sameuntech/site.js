@@ -13,6 +13,12 @@
   sitemap.addEventListener('click', function (e) { if (e.target === sitemap) setOpen(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
 
+  // 스크롤하면 고정 메뉴에 남색 바탕
+  var header = document.querySelector('.header');
+  function onScroll() { header.classList.toggle('scrolled', window.scrollY > 10); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
   // 카카오톡 채널 주소가 아직 없을 때(build.py CO["kakao"] 가 비어 있음)
   document.querySelectorAll('a[href="#kakao"]').forEach(function (a) {
     a.removeAttribute('target');
